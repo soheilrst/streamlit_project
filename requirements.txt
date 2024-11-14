@@ -4,3 +4,4 @@ streamlit_folium
 pyproj
 openpyxl
 matplotlib
+seaborn
