@@ -3,6 +3,7 @@ from campaign_mapping import campaign_map
 from streamlit_folium import folium_static
 import pandas as pd
 from campaign_page import camp_page
+from dq_page import dq
 
 st.sidebar.title("Navigation")
 page = st.sidebar.selectbox(
@@ -15,19 +16,8 @@ if page == "Home":
     st.write("This is the main page content.")
 
 elif page == "Data Quality Visualisation":
-    st.title("Data Quality Visualisation")
-    st.write("Content for Data Data Quality Visualisation goes here.")
-    uploaded_file = st.file_uploader(
-        "Choose a file to upload", type=["csv", "xlsx", "parquet"]
-    )
-
-    if uploaded_file is not None:
-        st.write("File uploaded successfully!")
-
-        st.write("Filename:", uploaded_file.name)
-        st.write("File type:", uploaded_file.type)
-        st.write("File size:", uploaded_file.size, "bytes")
-
+    dq()
+    
 
 elif page == "Campaign and Mapping":
     
