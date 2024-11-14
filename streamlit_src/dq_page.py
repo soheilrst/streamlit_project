@@ -2,14 +2,14 @@ from logging import PlaceHolder
 import streamlit as st
 import numpy as np
 from dq_functions import *
+from dq_visualize_functions import *
 from streamlit_folium import folium_static
 import pandas as pd
 import openpyxl
 from io import BytesIO
 
 def dq() -> None: 
-    st.title("Data Quality & Visualisation")
-    st.write("Content for Data Quality & Data Visualisation goes here.")
+    
     
     uploaded_file = st.file_uploader("Choose a file to upload", type=["csv", "xlsx", "parquet"])
     
@@ -17,7 +17,8 @@ def dq() -> None:
         st.write("File uploaded successfully!")
         st.write("Filename:", uploaded_file.name)
         st.write("File type:", uploaded_file.type)
-        st.write("File size:", uploaded_file.size, "bytes")
+        st.write("File size:", uploaded_file.size, "bytes" )
+        
         
         if uploaded_file.name.endswith(".csv"):
             df = pd.read_csv(uploaded_file, delimiter=",")
@@ -30,6 +31,7 @@ def dq() -> None:
         df = df.replace(to_replace="None", value=np.nan)
         df = df.dropna(axis="columns", how='all')
         st.write("Data Preview:")
+        st.write("File shape:", df.shape)
         st.write(df.head())
         
         
@@ -88,10 +90,22 @@ def dq() -> None:
                     
         elif option == "Visualize Data Quality":
             st.write("Data quality visualizations and analysis would go here.")
+            col_name = str(st.text_input("Enter the column name containing Postalcode"))
+            if col_name:
+                if col_name not in df.columns :
+                    
+                    st.error("The specified column name does not exist in the DataFrame!")
+                    
+                plz_check = plz_visual(df,col_name) 
+                
+            else :
+                st.info("Please choose a give the Postalcode Column name.")
+            
         
     else:
         st.info("Please choose a file to upload.")
         
+            
     return None
                 
                 
