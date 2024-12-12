@@ -48,7 +48,7 @@ def camp_page():
         else:
             st.error("The uploaded file must contain 'LAT' and 'LON' columns.")
     else:
-        df = pd.read_parquet("/workspaces/streamlit_project/streamlit_src/Data/OSM_Berlin.parquet")
+        df = pd.read_parquet("https://raw.githubusercontent.com/soheilrst/streamlit_project/master/streamlit_src/Data/OSM_Berlin.parquet")
         st.write("Data Preview:")
         st.write(df.head())
 

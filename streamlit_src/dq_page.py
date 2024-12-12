@@ -118,7 +118,7 @@ def dq() -> None:
                 st.info("Please choose a give the Postalcode Column name.")
 
     else:
-        df = pd.read_excel("/workspaces/streamlit_project/streamlit_src/Data/OSM_Berlin_DQ.xlsx", engine="openpyxl")
+        df = pd.read_excel("https://raw.githubusercontent.com/soheilrst/streamlit_project/master/streamlit_src/Data/OSM_Berlin_DQ.xlsx", engine="openpyxl")
         
         st.write("Example Data Preview:")
         st.write("File shape:", df.shape)
