@@ -3,6 +3,7 @@ from campaign_mapping import campaign_map
 from streamlit_folium import folium_static
 import pandas as pd
 
+
 def camp_page():
     st.write("Upload a CSV, Excel, or Parquet file to display campaign data on a map.")
 
@@ -46,4 +47,32 @@ def camp_page():
                 st.write("No data available for the selected city and campaigns.")
         else:
             st.error("The uploaded file must contain 'LAT' and 'LON' columns.")
+    else:
+        df = pd.read_parquet("Data\OSM_Berlin.parquet")
+        st.write("Data Preview:")
+        st.write(df.head())
+
+        df = df[(df["LAT"].notna() & df["LON"].notna())]
+
+        city_column = st.selectbox("Select the column for city", df.columns[6])
+        campaign_column = st.selectbox("Select the column for campaign", df.columns)
+        selected_city = st.selectbox("Choose a city", "Berlin")
+        campaign1 = st.selectbox("Select campaign1", df[campaign_column].unique())
+        campaign2 = st.selectbox("Select campaign2", df[campaign_column].unique()[1])
+
+        filtered_df = df[
+            (df[city_column].str.contains(selected_city, case=False, na=False))
+            & (df[campaign_column].isin({campaign1, campaign2}))
+        ]
+
+        if not filtered_df.empty:
+            st.write(f"Showing campaigns for {selected_city}")
+            m = campaign_map(
+                filtered_df, campaign_column, campaign1, campaign_column, campaign2
+            )
+
+            folium_static(m)
+        else:
+            st.write("No data available for the selected city and campaigns.")
+
     return None

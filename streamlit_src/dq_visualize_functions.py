@@ -41,10 +41,9 @@ def plz_visual(df: pd.DataFrame, postcode: str) -> int:
     counts.append(na_count)
 
     df = df[df[postcode].notna()]
-    df[postcode] = df[postcode].astype(int).astype(str)
-    df[postcode] = df[postcode].str.strip()
+    df[postcode] = df[postcode].astype(str).str.strip()
 
-    unbekannt_pattern = r"(?!).*unbekannt.*"
+    unbekannt_pattern = r".*unbekannt.*"
     unbekannt_pattern_count = df[
         df[postcode].str.contains(unbekannt_pattern, regex=True, na=False, case=False)
     ].shape[0]
@@ -56,7 +55,7 @@ def plz_visual(df: pd.DataFrame, postcode: str) -> int:
     ].shape[0]
     counts.append(komma_pattern_count)
 
-    pattern_not_digit = r"\b(?!unbekannt\b)\D+\b"
+    pattern_not_digit = r"\b(unbekannt\b)\D+\b"
     plz_non_digit_count = df[
         df[postcode].str.contains(pattern_not_digit, regex=True, na=False, case=False)
     ].shape[0]
@@ -75,9 +74,7 @@ def plz_visual(df: pd.DataFrame, postcode: str) -> int:
     zero_count = df[(df[postcode] == "^0+$") & (df[postcode].str.len() < 5)].shape[0]
     counts.append(zero_count)
 
-    
-
-    # ungülitige länge
+    # unguelitige laenge
     invalid_length_count = df[
         (df[postcode].str.len() != 0)
         & (df[postcode].str.len() != 5)
