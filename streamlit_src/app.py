@@ -44,7 +44,8 @@ def set_bg(image_file):
     st.markdown(css, unsafe_allow_html=True)
 
 
-set_bg("abstract-plexus-blue-geometrical-shapes-connection-ai-generated-image.jpg")
+set_bg("set_bg("https://raw.githubusercontent.com/soheilrst/streamlit_project/master/streamlit_src/abstract-plexus-blue-geometrical-shapes-connection-ai-generated-image.jpg")
+")
 
 
 st.sidebar.title("Navigation")
