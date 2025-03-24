@@ -5,6 +5,46 @@ import pandas as pd
 from campaign_page import camp_page
 from dq_page import dq
 import base64
+import streamlit.components.v1 as components
+
+
+def content_box_html(html_content):
+    components.html(
+        f"""
+    <div style="
+        background-color: rgba(0, 0, 0, 0.6); 
+        padding: 2rem; 
+        border-radius: 15px;
+        color: white;
+        margin-bottom: 2rem;
+        font-family: sans-serif;
+    ">
+        {html_content}
+    </div>
+    """,
+        height=400,
+    )
+
+
+def set_bg(image_file):
+    with open(image_file, "rb") as image:
+        encoded = base64.b64encode(image.read()).decode()
+
+    css = f"""
+    <style>
+   
+    .stApp {{
+        background-image: url("data:image/jpg;base64,{encoded}");
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+    }}
+    </style>
+    """
+    st.markdown(css, unsafe_allow_html=True)
+
+
+set_bg("abstract-plexus-blue-geometrical-shapes-connection-ai-generated-image.jpg")
 
 
 st.sidebar.title("Navigation")
@@ -14,41 +54,49 @@ page = st.sidebar.selectbox(
 
 
 if page == "Home":
-    st.title("Welcome to the Home Page")
-    st.write(
-        """Hey there! Thanks for visiting my website. I'm excited to share some small but cool data analysis 
-            projects because I'm passionate about data and how it can uncover business insights and make life easier for everyone.
-            From data quality tools to visualizations and mapping projects, I'm here to have fun with data and I hope you do too. Enjoy exploring!"""
-    )
+    content_box_html("""
+    <h1>Welcome to the Data Insight Tools</h1>
 
-    st.info(
-        "Navigate using the sidebar to explore the Data Quality & Visualisation or the Campaign and Mapping sections."
-    )
+    <p>
+    This platform showcases a collection of focused data projects aimed at improving data quality, enhancing visualization, and enabling geospatial insights.
+    </p>
+
+    <p>
+    From validating address components to exploring campaign coverage through interactive maps, each section is designed to demonstrate practical solutions to real-world data challenges.
+    </p>
+
+    <p>
+    Use the sidebar to navigate between the <strong>Data Quality & Visualisation</strong> tools and the <strong>Campaign and Mapping</strong> module.
+    </p>
+""")
+
 
 
 elif page == "Data Quality & Visualisation":
-    st.title("Data Quality &  Visualisation")
-    st.write("Explore the data quality metrics and visualizations in this section.")
-    st.markdown(
+
+    content_box_html(
         """
-        ### What You Can Do Here:
-        - Gain insights into the quality and consistency of your postalcode column.(soon also housnumber, street and city)
-        - Separate street names and house numbers efficiently.
-        - Compare two house number columns to identify discrepancies.(soon)"""
+        <h1>Data Quality &  Visualisation</h1>
+        <h3>Explore the data quality metrics and visualizations in this section.</h3>
+        <strong>What You Can Do Here:</strong> 
+        <ul><li> Gain insights into the quality and consistency of your postalcode column.(soon also housnumber, street and city)</li>
+        <li> Separate street names and house numbers efficiently. </li>
+        <li> Compare two house number columns to identify discrepancies.(soon) </li></ul>"""
     )
     dq()
 
 
 elif page == "Campaign and Mapping":
-    st.title("Campaign and Mapping")
-    st.write(
-        "This section provides tools to visualize campaign data on an interactive map."
-    )
-    st.markdown(
+    content_box_html(
         """
-        ### What You Can Do Here:
-        - View mapped campaigns with relevant data.
-        - Analyze geographical coverage and campaign distribution.
+        <h1>Campaign and Mapping</h1>
+        <h3>This section provides tools to visualize campaign data on an interactive map.</h3>
+        
+        <strong>What You Can Do Here:</strong> 
+        <ul> 
+        <li> View mapped campaigns with relevant data. </li>
+        <li> Analyze geographical coverage and campaign distribution. </li>
+        </ul> 
         """
     )
     camp_page()

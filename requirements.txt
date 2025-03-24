@@ -5,3 +5,7 @@ pyproj
 openpyxl
 matplotlib
 seaborn
+flask
+cx_Oracle
+flasgger 
+flask-swagger-ui

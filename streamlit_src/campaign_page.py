@@ -35,7 +35,7 @@ def camp_page():
                 (df[city_column].str.contains(selected_city, case=False, na=False))
                 & (df[campaign_column].isin({campaign1, campaign2}))
             ]
-
+            # die Anzahl jeder Campagn könnte gezeigt werden als
             if not filtered_df.empty:
                 st.write(f"Showing campaigns for {selected_city}")
                 m = campaign_map(

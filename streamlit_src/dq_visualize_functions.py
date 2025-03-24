@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 
+
 logger = logging.getLogger()
 
 
@@ -22,7 +23,7 @@ def visualize(df: pd.DataFrame, col_name: str, counts: list, patterns: list) -> 
     sorted_data = sorted(zip(counts, patterns), reverse=True)
     counts, patterns = zip(*sorted_data)
 
-    palette = sns.color_palette("Blues_r", len(patterns))
+    palette = sns.color_palette("mako", len(patterns))
 
     sns.barplot(x=list(counts), y=list(patterns), palette=palette)
     plt.xticks(rotation=45, ha="right")
@@ -34,7 +35,7 @@ def visualize(df: pd.DataFrame, col_name: str, counts: list, patterns: list) -> 
     return None
 
 
-def plz_visual(df: pd.DataFrame, postcode: str) -> int:
+def plz_visual(df: pd.DataFrame, postcode: str) -> None:
     counts = []
 
     na_count = df[df[postcode].isnull()].shape[0]
@@ -95,3 +96,32 @@ def plz_visual(df: pd.DataFrame, postcode: str) -> int:
     visualize(df, postcode, counts, patterns)
 
     return None
+
+
+
+# Idee 1: Spalten- und Muster-Auswahl 
+#
+#    Benutzer waehlt eine Spalte (z. B. street, housenumber, plz) ueber ein Dropdown-Menü.
+#    Auswahl vordefinierten Mustern zur ueberprüfung.
+#
+#
+# Idee 2 Skalierbar Regelbasierte Datenprüfung: 
+#    
+#    Regeln werden in einer Tabelle (rule_id, rule_type, rule(regex oder eine bestimmte string und gespeichert .
+#    Regeltypen:
+#    Vollständigkeit: Prüft auf fehlende Werte.
+#    Korrektheit: Prüft auf gültige Werte mit Regex. die könnenn auch bestimmte vordefinierte string sein , zum beispiel entweerder einer regex expression oder eine liste von bestimmte akzeptable werte 
+#    Benutzer kann:
+#    Regeln erstellen, bearbeiten und einsehen.
+#    Regeln auf hochgeladene Dateien anwenden und Ergebnisse visualisieren.
+    
+#Category	Description
+#regex_correct	Entries that must match a regex pattern (e.g., valid postal code format)
+#regex_incorrect	Entries that should NOT match a regex pattern (e.g., containing "unbekannt")
+#valid_values	A list of allowed values (e.g., "active", "inactive")
+#invalid_values	A list of forbidden values (e.g., "unbekannt", "N/A")
+#empty	Checks if a column is missing (NaN, empty, or whitespace)
+#filled	Checks if a column must be filled (no empty values allowed)
+
+
+# we should enter now enter define the rules in the cloud db
