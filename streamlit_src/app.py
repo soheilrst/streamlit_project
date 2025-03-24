@@ -26,15 +26,11 @@ def content_box_html(html_content):
     )
 
 
-def set_bg(image_file):
-    with open(image_file, "rb") as image:
-        encoded = base64.b64encode(image.read()).decode()
-
+ef set_bg_url(url):
     css = f"""
     <style>
-   
     .stApp {{
-        background-image: url("data:image/jpg;base64,{encoded}");
+        background-image: url("{url}");
         background-size: cover;
         background-attachment: fixed;
         background-repeat: no-repeat;
@@ -44,8 +40,7 @@ def set_bg(image_file):
     st.markdown(css, unsafe_allow_html=True)
 
 
-set_bg("set_bg("https://raw.githubusercontent.com/soheilrst/streamlit_project/master/streamlit_src/abstract-plexus-blue-geometrical-shapes-connection-ai-generated-image.jpg")
-
+set_bg_url("https://raw.githubusercontent.com/soheilrst/streamlit_project/master/streamlit_src/abstract-plexus-blue-geometrical-shapes-connection-ai-generated-image.jpg")
 
 st.sidebar.title("Navigation")
 page = st.sidebar.selectbox(
