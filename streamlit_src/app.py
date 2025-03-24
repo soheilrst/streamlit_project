@@ -26,7 +26,7 @@ def content_box_html(html_content):
     )
 
 
-ef set_bg_url(url):
+def set_bg_url(url):
     css = f"""
     <style>
     .stApp {{
