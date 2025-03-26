@@ -7,34 +7,41 @@ from dq_page import dq
 import base64
 import streamlit.components.v1 as components
 
+st.markdown("""
+    <style>
+        .main .block-container {
+            max-width: 95% !important;
+            padding-left: 5rem;
+            padding-right: 5rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-def content_box_html(html_content):
+def content_box_html(html_content, box_height=400):
     components.html(
         f"""
-    <div style="
-        background-color: rgba(0, 0, 0, 0.6); 
-        padding: 2rem; 
-        border-radius: 15px;
-        color: white;
-        margin-bottom: 2rem;
-        font-family: sans-serif;
-    ">
-        {html_content}
-    </div>
-    """,
-        height=400,
+        <div style="
+            background-color: rgba(0, 0, 0, 0.6); 
+            padding: 2rem; 
+            border-radius: 15px;
+            color: white;
+            margin-bottom: 2rem;
+            font-family: sans-serif;
+            width: 100%;
+        ">
+            {html_content}
+        </div>
+        """,
+        height=box_height,
     )
 
 
-def set_bg(image_file):
-    with open(image_file, "rb") as image:
-        encoded = base64.b64encode(image.read()).decode()
 
+def set_bg_url(url):
     css = f"""
     <style>
-   
     .stApp {{
-        background-image: url("data:image/jpg;base64,{encoded}");
+        background-image: url("{url}");
         background-size: cover;
         background-attachment: fixed;
         background-repeat: no-repeat;
@@ -44,7 +51,8 @@ def set_bg(image_file):
     st.markdown(css, unsafe_allow_html=True)
 
 
-set_bg("abstract-plexus-blue-geometrical-shapes-connection-ai-generated-image.jpg")
+set_bg_url("https://raw.githubusercontent.com/soheilrst/streamlit_project/master/streamlit_src/abstract-plexus-blue-geometrical-shapes-connection-ai-generated-image.jpg")
+
 
 
 st.sidebar.title("Navigation")
@@ -79,10 +87,9 @@ elif page == "Data Quality & Visualisation":
         <h1>Data Quality &  Visualisation</h1>
         <h3>Explore the data quality metrics and visualizations in this section.</h3>
         <strong>What You Can Do Here:</strong> 
-        <ul><li> Gain insights into the quality and consistency of your postalcode column.(soon also housnumber, street and city)</li>
-        <li> Separate street names and house numbers efficiently. </li>
-        <li> Compare two house number columns to identify discrepancies.(soon) </li></ul>"""
-    )
+        <ul><li> Gain insights into the quality and consistency of your postalcode column.</li>
+        <li> Separate street names and house numbers efficiently. </li></ul>"""
+     , 300)
     dq()
 
 
@@ -98,5 +105,5 @@ elif page == "Campaign and Mapping":
         <li> Analyze geographical coverage and campaign distribution. </li>
         </ul> 
         """
-    )
+    , 300)
     camp_page()
