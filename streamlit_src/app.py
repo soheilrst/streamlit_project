@@ -54,6 +54,7 @@ def set_bg_url(url):
 set_bg_url("https://raw.githubusercontent.com/soheilrst/streamlit_project/master/streamlit_src/abstract-plexus-blue-geometrical-shapes-connection-ai-generated-image.jpg")
 
 
+set_bg_url("https://raw.githubusercontent.com/soheilrst/streamlit_project/master/streamlit_src/abstract-plexus-blue-geometrical-shapes-connection-ai-generated-image.jpg")
 
 st.sidebar.title("Navigation")
 page = st.sidebar.selectbox(
