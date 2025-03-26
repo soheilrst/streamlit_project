@@ -9,3 +9,4 @@ flask
 cx_Oracle
 flasgger 
 flask-swagger-ui
+plotly
